@@ -1,0 +1,30 @@
+# Keep build contexts small. Never include secrets.
+.git
+.cursor
+.github
+**/.DS_Store
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Dependencies and build artifacts
+node_modules
+**/node_modules
+**/dist
+**/.next
+**/coverage
+**/*.tsbuildinfo
+
+# Local/docs/assets not required for app images
+docs
+assets
+**/README.md
+
+# Tests
+**/test
+**/*.spec.ts
+**/jest*.json
