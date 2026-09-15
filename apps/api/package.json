@@ -21,6 +21,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "migration:run": "typeorm-ts-node-commonjs migration:run -d src/database/data-source.ts",
     "migration:revert": "typeorm-ts-node-commonjs migration:revert -d src/database/data-source.ts",
+    "migration:run:prod": "typeorm migration:run -d dist/database/data-source.js",
+    "migration:revert:prod": "typeorm migration:revert -d dist/database/data-source.js",
     "seed": "ts-node --project tsconfig.data-source.json src/catalog/seed/run-seed.ts"
   },
   "dependencies": {
