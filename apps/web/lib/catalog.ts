@@ -26,3 +26,16 @@ export function getPrimaryImage(media: ProductMedia[]): ProductMedia | undefined
 export function getAdditionalImages(media: ProductMedia[]): ProductMedia[] {
   return media.filter((m) => m.type === 'image' && !m.isPrimary);
 }
+
+/** Image media sorted for gallery display (primary first, then sortOrder). */
+export function getProductImages(media: ProductMedia[]): ProductMedia[] {
+  return media
+    .filter((m) => m.type === 'image')
+    .slice()
+    .sort((a, b) => {
+      if (a.isPrimary !== b.isPrimary) {
+        return a.isPrimary ? -1 : 1;
+      }
+      return a.sortOrder - b.sortOrder;
+    });
+}

@@ -15,8 +15,9 @@ const body = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: 'Zevooria',
-  description: 'Zevooria perfumes — the collection',
+  title: 'Zevooria — The Collection',
+  description:
+    'Zevooria perfumes — a dark, deliberate fragrance collection.',
 };
 
 export default function RootLayout({

@@ -18,25 +18,48 @@ export default async function HomePage() {
         : 'Something went wrong while loading the catalog.';
   }
 
-  return (
-    <main className={styles.main}>
-      <header className={styles.header}>
-        <p className={styles.brand}>Zevooria</p>
-        <h1 className={styles.headline}>The Collection</h1>
-        <p className={styles.lede}>
-          Perfumes composed for presence — browse the current catalog.
-        </p>
-      </header>
+  const count = products?.length ?? 0;
 
-      <section className={styles.section} aria-label="Product catalog">
-        {errorMessage ? <CatalogError message={errorMessage} /> : null}
-        {!errorMessage && products && products.length === 0 ? (
-          <CatalogEmpty />
-        ) : null}
-        {!errorMessage && products && products.length > 0 ? (
-          <ProductGrid products={products} />
-        ) : null}
-      </section>
-    </main>
+  return (
+    <div className={styles.page}>
+      <main className={styles.main}>
+        <header className={styles.hero}>
+          <p className={styles.eyebrow}>Maison de parfum</p>
+          <h1 className={styles.brand}>Zevooria</h1>
+          <div className={styles.heroRule} aria-hidden />
+          <p className={styles.lede}>
+            A dark, deliberate collection — composed for presence, finished with
+            restraint.
+          </p>
+          {!errorMessage && products ? (
+            <p className={styles.meta}>
+              {count === 0
+                ? 'Collection forthcoming'
+                : `${count} fragrance${count === 1 ? '' : 's'} available`}
+            </p>
+          ) : null}
+        </header>
+
+        <section className={styles.section} aria-labelledby="collection-heading">
+          <div className={styles.sectionHead}>
+            <h2 id="collection-heading" className={styles.sectionTitle}>
+              The Collection
+            </h2>
+            <p className={styles.sectionCopy}>
+              Each composition is presented as photographed — prices and details
+              are served live from the catalog.
+            </p>
+          </div>
+
+          {errorMessage ? <CatalogError message={errorMessage} /> : null}
+          {!errorMessage && products && products.length === 0 ? (
+            <CatalogEmpty />
+          ) : null}
+          {!errorMessage && products && products.length > 0 ? (
+            <ProductGrid products={products} />
+          ) : null}
+        </section>
+      </main>
+    </div>
   );
 }

@@ -7,10 +7,13 @@ import {
   formatProductPrice,
   getAdditionalImages,
   getPrimaryImage,
+  getProductImages,
   storageKeyToPublicUrl,
 } from './catalog';
 import { resolveSafeAssetPath } from './assets-path';
 import type { ProductMedia } from './types';
+import { CatalogApiError } from './api';
+import { fetchProductBySlug } from './product';
 
 test('storageKeyToPublicUrl maps assets keys to public URLs', () => {
   assert.equal(
@@ -59,6 +62,47 @@ test('primary and additional image selection', () => {
     getAdditionalImages(media).map((m) => m.id),
     ['1'],
   );
+  assert.deepEqual(
+    getProductImages(media).map((m) => m.id),
+    ['2', '1'],
+  );
+});
+
+test('fetchProductBySlug maps 404 to CatalogApiError', async () => {
+  const fetchImpl = async () =>
+    new Response(null, { status: 404 }) as Response;
+
+  await assert.rejects(
+    () => fetchProductBySlug('missing', {}, fetchImpl as typeof fetch),
+    (error: unknown) =>
+      error instanceof CatalogApiError && error.status === 404,
+  );
+});
+
+test('fetchProductBySlug returns a product payload', async () => {
+  const payload = {
+    id: '1',
+    name: 'Tester',
+    slug: 'tester',
+    description: 'Demo',
+    price: '999.00',
+    currency: 'PKR',
+    status: 'active',
+    media: [],
+  };
+  const fetchImpl = async () =>
+    new Response(JSON.stringify(payload), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    }) as Response;
+
+  const product = await fetchProductBySlug(
+    'tester',
+    {},
+    fetchImpl as typeof fetch,
+  );
+  assert.equal(product.slug, 'tester');
+  assert.equal(product.price, '999.00');
 });
 
 test('resolveSafeAssetPath blocks traversal', () => {

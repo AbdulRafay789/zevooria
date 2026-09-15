@@ -3,8 +3,8 @@ import styles from './catalog-state.module.css';
 export function CatalogLoading() {
   return (
     <div className={styles.state} role="status" aria-live="polite">
-      <p className={styles.title}>Loading collection</p>
-      <p className={styles.copy}>Fetching fragrances from the catalog.</p>
+      <p className={styles.title}>Opening the collection</p>
+      <p className={styles.copy}>Retrieving live catalog details.</p>
     </div>
   );
 }
@@ -20,10 +20,16 @@ export function CatalogEmpty() {
   );
 }
 
-export function CatalogError({ message }: { message: string }) {
+export function CatalogError({
+  message,
+  title = 'Unable to load catalog',
+}: {
+  message: string;
+  title?: string;
+}) {
   return (
     <div className={styles.state} role="alert">
-      <p className={styles.title}>Unable to load catalog</p>
+      <p className={styles.title}>{title}</p>
       <p className={styles.copy}>{message}</p>
     </div>
   );

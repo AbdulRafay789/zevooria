@@ -1,0 +1,9 @@
+.page {
+  min-height: 100vh;
+}
+
+.main {
+  width: min(var(--max-width), calc(100% - (var(--space-page) * 2)));
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+}

@@ -1,19 +1,22 @@
 .state {
-  border: 1px solid rgba(196, 165, 116, 0.2);
-  padding: 2.5rem 1.5rem;
+  border: 1px solid var(--line);
+  padding: clamp(2.5rem, 5vw, 3.5rem) 1.5rem;
   text-align: center;
-  background: rgba(20, 18, 16, 0.7);
+  background: var(--bg-elevated);
 }
 
 .title {
-  margin: 0 0 0.5rem;
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  color: #f5efe6;
+  margin: 0 0 0.65rem;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.45rem, 3vw, 1.75rem);
+  font-weight: 500;
+  color: var(--ink);
 }
 
 .copy {
-  margin: 0;
-  color: rgba(245, 239, 230, 0.65);
-  line-height: 1.5;
+  margin: 0 auto;
+  max-width: 28rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+  font-size: 0.98rem;
 }
