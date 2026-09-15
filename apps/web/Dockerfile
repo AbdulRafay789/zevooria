@@ -15,11 +15,15 @@ RUN npm run build -w @zevooria/web
 
 FROM node:20-alpine AS runner
 WORKDIR /app
-RUN addgroup -S nodejs && adduser -S nextjs -G nodejs
+RUN addgroup -S nodejs && adduser -S nextjs -G nodejs \
+  && mkdir -p /app/assets \
+  && chown nextjs:nodejs /app/assets
 
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
+ENV API_URL=http://api:3001
+ENV ASSETS_ROOT=/app/assets
 
 COPY --from=build --chown=nextjs:nodejs /repo/apps/web/public ./apps/web/public
 COPY --from=build --chown=nextjs:nodejs /repo/apps/web/.next/standalone ./

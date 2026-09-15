@@ -11,7 +11,7 @@
     "dev:api": "npm run start:dev -w @zevooria/api",
     "dev:web": "npm run dev -w @zevooria/web",
     "build": "npm run build -w @zevooria/api && npm run build -w @zevooria/web",
-    "test": "npm run test -w @zevooria/api",
+    "test": "npm run test -w @zevooria/api && npm run test -w @zevooria/web",
     "typecheck": "npm run typecheck -w @zevooria/api && npm run typecheck -w @zevooria/web",
     "lint": "npm run lint -w @zevooria/api && npm run lint -w @zevooria/web",
     "migration:run": "npm run migration:run -w @zevooria/api",
