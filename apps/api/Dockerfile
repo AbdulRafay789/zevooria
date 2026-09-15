@@ -29,6 +29,7 @@ ENV PORT=3001
 COPY --from=prod-deps --chown=nestjs:nodejs /repo/package.json ./package.json
 COPY --from=prod-deps --chown=nestjs:nodejs /repo/node_modules ./node_modules
 COPY --from=prod-deps --chown=nestjs:nodejs /repo/apps/api/package.json ./apps/api/package.json
+COPY --from=prod-deps --chown=nestjs:nodejs /repo/apps/api/node_modules ./apps/api/node_modules
 COPY --from=build --chown=nestjs:nodejs /repo/apps/api/dist ./apps/api/dist
 
 USER nestjs
