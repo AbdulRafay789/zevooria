@@ -1,0 +1,46 @@
+description: Double-entry accounting rules
+alwaysApply: false
+globs: "apps/api/**/accounting/**/*.{ts,sql},apps/api/**/journal/**/*.{ts,sql},apps/api/**/ledger/**/*.{ts,sql},apps/api/**/invoice/**/*.{ts,sql}"
+Accounting Rules
+
+The accounting system uses double-entry bookkeeping.
+
+Every journal entry must balance:
+
+Debit total = Credit total
+
+Accounting must be auditable.
+
+Do not delete historical financial transactions.
+
+Corrections should use reversal/adjustment mechanisms.
+
+Before changing accounting:
+
+Read docs/ACCOUNTING.md.
+Identify the business event.
+Identify affected accounts.
+Define debit and credit behavior.
+Implement through accounting services.
+Add tests.
+Verify that entries balance.
+
+Potential accounting events include:
+
+sales
+refunds
+purchases
+inventory
+COGS
+payment gateway fees
+shipping revenue
+shipping expense
+reseller commissions
+taxes
+adjustments
+
+Never invent accounting treatment.
+
+If the accounting treatment is unclear, stop and ask for clarification.
+
+Never use floating-point arithmetic for financial calculations.

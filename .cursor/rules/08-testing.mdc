@@ -1,0 +1,54 @@
+description: Testing requirements
+alwaysApply: false
+globs: "**/*.{ts,tsx}"
+Testing Rules
+
+New business functionality should have tests.
+
+Prioritize tests for:
+
+authentication
+authorization
+payments
+orders
+inventory
+accounting
+refunds
+reseller commissions
+
+Payment tests must consider:
+
+success
+failure
+pending
+timeout
+duplicate webhook
+replayed webhook
+invalid callback
+refund
+
+Order tests must consider:
+
+creation
+cancellation
+shipping
+delivery
+return
+refund
+
+Inventory tests must consider:
+
+sale
+return
+reservation
+adjustment
+
+Accounting tests must verify:
+
+Debit total = Credit total
+
+Never delete tests simply to make code pass.
+
+Run the smallest relevant test suite during development.
+
+Run broader tests before completing a milestone.

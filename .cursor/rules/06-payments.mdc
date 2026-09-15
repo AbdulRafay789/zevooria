@@ -1,0 +1,49 @@
+description: Payment integrations and transaction safety
+alwaysApply: false
+globs: "apps/api/**/payment*/**/*.{ts,sql},apps/api/**/checkout/**/*.{ts,sql},apps/api/**/easypaisa/**/*.{ts,sql},apps/api/**/alfalah/**/*.{ts,sql}"
+Payment Rules
+
+Payment status must be determined by the backend.
+
+Never trust a frontend success response.
+
+Use a provider abstraction.
+
+Conceptually:
+
+PaymentProvider
+├── EasyPaisaProvider
+└── BankAlfalahProvider
+
+
+Orders and checkout must not depend directly on provider-specific implementation details.
+
+Payment operations must be idempotent.
+
+Webhook/callback processing must safely handle duplicate delivery.
+
+Store provider transaction identifiers.
+
+Verify callbacks according to provider requirements.
+
+Never expose provider secrets to frontend applications.
+
+Never log payment credentials.
+
+Payment states should be explicit.
+
+Consider:
+
+CREATED
+PENDING
+PROCESSING
+SUCCESS
+FAILED
+EXPIRED
+REFUNDED
+
+Do not mark an order as paid merely because the customer returned from a payment page.
+
+Server-side verification is mandatory.
+
+Read docs/PAYMENTS.md before modifying payment behavior.

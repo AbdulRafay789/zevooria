@@ -1,0 +1,40 @@
+description: PostgreSQL schema and migration rules
+alwaysApply: false
+globs: "apps/api/**/*.{ts,sql}"
+Database Rules
+
+PostgreSQL is the primary database.
+
+Before changing schema:
+
+Read docs/DATABASE.md.
+Inspect existing entities/models.
+Inspect existing migrations.
+Identify relationships.
+Create a new migration.
+Add tests where appropriate.
+Update documentation if architecture changed.
+
+Never edit an already-applied migration.
+
+Never silently drop data.
+
+Never create duplicate tables because a similar entity exists.
+
+Use foreign keys where appropriate.
+
+Use unique constraints for business invariants.
+
+Add indexes based on actual query requirements.
+
+Avoid N+1 queries.
+
+Use transactions for atomic operations.
+
+Money must use decimal-safe representation.
+
+Do not use floating-point numbers for monetary values.
+
+Use a consistent timezone strategy.
+
+Never put secrets in migrations or source code.

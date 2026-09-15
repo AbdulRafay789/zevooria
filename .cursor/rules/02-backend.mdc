@@ -1,0 +1,53 @@
+description: NestJS backend development rules
+alwaysApply: false
+globs: "apps/api/**/*.ts"
+NestJS Backend Rules
+
+Use clear domain boundaries.
+
+Prefer:
+
+module
+├── controller
+├── service
+├── repository
+├── dto
+├── entities
+└── tests
+
+
+Use dependency injection.
+
+Use DTOs for external input.
+
+Validate external input.
+
+Do not expose database entities directly when doing so leaks internal fields.
+
+Keep controllers thin.
+
+Business logic belongs in services/domain layers.
+
+Do not put business logic into controllers.
+
+Use transactions for multi-step operations requiring atomicity.
+
+Use consistent error handling.
+
+Use consistent API response and pagination conventions.
+
+Do not introduce a new abstraction when an existing project abstraction can be reused.
+
+Before modifying an existing service, inspect its callers.
+
+Do not change public API behavior without checking all consumers.
+
+Backend must remain authoritative for:
+
+prices
+inventory
+order totals
+payments
+accounting
+commissions
+permissions

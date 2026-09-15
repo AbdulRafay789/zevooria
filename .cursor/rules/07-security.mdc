@@ -1,0 +1,44 @@
+description: Security rules for all applications
+alwaysApply: true
+Security
+
+Never commit:
+
+passwords
+API keys
+AWS credentials
+payment credentials
+private keys
+production secrets
+
+Never expose server secrets to Next.js client-side code or Ionic client code.
+
+Validate all external input.
+
+Authorization must be enforced server-side.
+
+Use least-privilege permissions.
+
+Use secure password hashing.
+
+Use appropriate token/session security.
+
+Apply rate limiting to sensitive endpoints.
+
+Protect authentication endpoints.
+
+Validate uploaded files.
+
+Do not trust filenames or MIME types supplied by clients.
+
+S3 objects should not become public unless explicitly required.
+
+Protect payment webhooks.
+
+Verify webhook signatures when supported.
+
+Avoid logging sensitive information.
+
+Do not return stack traces or internal implementation details in production API responses.
+
+Security-sensitive changes require tests where practical.

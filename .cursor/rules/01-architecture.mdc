@@ -1,0 +1,92 @@
+description: System architecture and domain boundaries
+alwaysApply: true
+Architecture
+Applications
+
+The platform contains:
+
+apps/api — NestJS backend
+apps/web — Next.js customer storefront
+apps/admin — Next.js administration
+apps/reseller — Next.js reseller portal
+apps/mobile — Ionic mobile application
+Shared packages
+
+Use shared packages for:
+
+types
+validation
+API client
+configuration
+UI components where appropriate
+Backend
+
+NestJS is the central business platform.
+
+Business domains should remain separated:
+
+auth
+users
+customers
+catalog
+inventory
+carts
+orders
+shipping
+payments
+accounting
+resellers
+promotions
+CMS
+notifications
+reports
+
+Avoid giant services containing unrelated business logic.
+
+Clients
+
+Clients are responsible for:
+
+presentation
+navigation
+interaction
+local UI state
+API communication
+
+Clients are NOT authoritative for:
+
+prices
+stock
+payments
+accounting
+commissions
+permissions
+order status
+Infrastructure
+
+Initial infrastructure:
+
+AWS EC2
+Docker
+Nginx
+AWS RDS PostgreSQL
+AWS S3
+AWS Route 53
+
+Design the application so it can later support:
+
+Redis
+queues
+CloudFront
+WAF
+load balancing
+multiple API instances
+database replicas
+
+Do not introduce these prematurely.
+
+Architecture changes
+
+Any architectural change affecting multiple domains requires documentation before implementation.
+
+Never silently introduce microservices.

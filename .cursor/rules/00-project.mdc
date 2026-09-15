@@ -1,0 +1,40 @@
+description: Global rules for the entire e-commerce project
+alwaysApply: true
+Global Project Rules
+
+Before changing anything:
+
+Read AGENTS.md.
+Read relevant project documentation.
+Read docs/ROADMAP.md.
+Inspect existing implementation.
+Search for reusable existing functionality.
+Make the smallest safe change.
+
+Never modify unrelated code.
+
+Never introduce unnecessary dependencies.
+
+Never duplicate business logic.
+
+The NestJS backend is authoritative.
+
+Web, admin, reseller and mobile clients consume backend APIs.
+
+Database changes require migrations.
+
+Accounting changes require accounting tests.
+
+Payment changes require idempotency and server-side verification.
+
+Security-sensitive changes require security review.
+
+After implementation:
+
+Run relevant tests.
+Run type checking.
+Run linting where applicable.
+Review git diff.
+Report changed files and validation results.
+
+If requirements conflict with documentation, stop and explain before making a large change.

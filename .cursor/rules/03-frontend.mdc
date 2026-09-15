@@ -1,0 +1,46 @@
+---
+description: Frontend client rules for web, admin, reseller, and mobile
+alwaysApply: false
+globs: "apps/web/**/*.{ts,tsx},apps/admin/**/*.{ts,tsx},apps/reseller/**/*.{ts,tsx},apps/mobile/**/*.{ts,tsx}"
+---
+Frontend Rules
+
+The frontend must consume the NestJS API.
+
+Never duplicate backend business rules.
+
+Never trust frontend calculations for:
+
+final price
+stock
+payment status
+commission
+authorization
+order status
+
+Use shared types and validation where appropriate.
+
+Prefer reusable components.
+
+Avoid unnecessary global state.
+
+Do not add a state-management library if existing patterns are sufficient.
+
+Handle:
+
+loading
+error
+empty
+success
+
+states explicitly.
+
+Keep accessibility in mind.
+
+Keep mobile responsiveness in mind for web applications.
+
+Do not make large visual changes unrelated to the requested task.
+
+For mobile, reuse API contracts used by web applications.
+
+Do not create separate business logic for Ionic.
