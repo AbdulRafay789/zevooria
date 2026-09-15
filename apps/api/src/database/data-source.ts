@@ -4,6 +4,7 @@ import { DataSource } from 'typeorm';
 import { Product } from '../catalog/entities/product.entity';
 import { ProductMedia } from '../catalog/entities/product-media.entity';
 import { InitialCatalog1757961600000 } from './migrations/1757961600000-InitialCatalog';
+import { buildPostgresSslOptions } from './postgres-ssl';
 
 // Load repo-root .env when commands run from apps/api
 loadEnv({ path: '../../.env' });
@@ -16,13 +17,7 @@ export default new DataSource({
   username: process.env.DB_USER ?? 'zevooria',
   password: process.env.DB_PASSWORD ?? 'zevooria',
   database: process.env.DB_NAME ?? 'zevooria',
-  ssl:
-    process.env.DB_SSL === 'true'
-      ? {
-          rejectUnauthorized:
-            process.env.DB_SSL_REJECT_UNAUTHORIZED !== 'false',
-        }
-      : false,
+  ssl: buildPostgresSslOptions(process.env),
   entities: [Product, ProductMedia],
   migrations: [InitialCatalog1757961600000],
   synchronize: false,
