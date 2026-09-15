@@ -16,7 +16,8 @@
     "lint": "npm run lint -w @zevooria/api && npm run lint -w @zevooria/web",
     "migration:run": "npm run migration:run -w @zevooria/api",
     "migration:run:prod": "npm run migration:run:prod -w @zevooria/api",
-    "seed": "npm run seed -w @zevooria/api"
+    "seed": "npm run seed -w @zevooria/api",
+    "seed:prod": "npm run seed:prod -w @zevooria/api"
   },
   "overrides": {
     "typeorm": "0.3.26"
