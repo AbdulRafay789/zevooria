@@ -1,0 +1,90 @@
+.footer {
+  border-top: 1px solid var(--line);
+  background: #2b2621;
+  color: #f6f1e8;
+}
+
+.inner {
+  width: min(var(--max-width), calc(100% - (var(--space-page) * 2)));
+  margin: 0 auto;
+  padding: 2.75rem 0 2rem;
+  display: grid;
+  gap: 2rem;
+}
+
+.brandBlock {
+  max-width: 22rem;
+}
+
+.brand {
+  margin: 0;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.statement {
+  margin: 0.75rem 0 0;
+  color: rgba(246, 241, 232, 0.62);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 1.25rem;
+}
+
+.column {
+  display: grid;
+  gap: 0.55rem;
+  align-content: start;
+}
+
+.heading {
+  margin: 0 0 0.2rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(246, 241, 232, 0.45);
+}
+
+.column a,
+.muted {
+  color: rgba(246, 241, 232, 0.72);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  transition: color 180ms var(--ease);
+}
+
+.column a:hover,
+.column a:focus-visible {
+  color: #e8d7b4;
+}
+
+.muted {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.copy {
+  margin: 0;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(246, 241, 232, 0.12);
+  color: rgba(246, 241, 232, 0.4);
+  font-size: 0.7rem;
+}
+
+@media (min-width: 900px) {
+  .inner {
+    gap: 2.5rem;
+    padding: 3.25rem 0 2.35rem;
+  }
+
+  .columns {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+  }
+}

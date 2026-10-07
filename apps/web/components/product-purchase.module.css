@@ -1,0 +1,137 @@
+.root {
+  display: grid;
+  gap: 0.75rem;
+  border-top: 1px solid var(--line);
+  margin-top: 0.15rem;
+  padding-top: 0.95rem;
+}
+
+.price {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.qty {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.4rem;
+  border: 1px solid var(--line);
+  flex: 1;
+}
+
+.qtyBtn {
+  appearance: none;
+  width: 2.25rem;
+  height: 2.4rem;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.qtyValue {
+  flex: 1;
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.wish {
+  appearance: none;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: not-allowed;
+}
+
+.add {
+  appearance: none;
+  width: 100%;
+  min-height: 2.85rem;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--ink);
+  color: #f6f1e8;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0.92;
+  transition:
+    opacity 180ms var(--ease),
+    background-color 180ms var(--ease),
+    transform 180ms var(--ease);
+}
+
+.add:hover:not(:disabled),
+.add:focus-visible:not(:disabled) {
+  opacity: 1;
+}
+
+.add:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.add:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.feedback {
+  margin: 0;
+  color: var(--champagne);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  animation: feedbackIn 320ms var(--ease) both;
+}
+
+@keyframes feedbackIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.notes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.notes li {
+  color: var(--ink-faint);
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .add,
+  .feedback {
+    transition: none;
+    animation: none;
+  }
+
+  .add:active:not(:disabled) {
+    transform: none;
+  }
+}

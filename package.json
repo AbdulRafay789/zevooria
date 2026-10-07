@@ -8,16 +8,27 @@
     "node": ">=20"
   },
   "scripts": {
+    "dev": "node scripts/local-dev.mjs",
     "dev:api": "npm run start:dev -w @zevooria/api",
     "dev:web": "npm run dev -w @zevooria/web",
-    "build": "npm run build -w @zevooria/api && npm run build -w @zevooria/web",
-    "test": "npm run test -w @zevooria/api && npm run test -w @zevooria/web",
-    "typecheck": "npm run typecheck -w @zevooria/api && npm run typecheck -w @zevooria/web",
-    "lint": "npm run lint -w @zevooria/api && npm run lint -w @zevooria/web",
+    "dev:admin": "npm run dev -w @zevooria/admin",
+    "dev:db": "docker compose -f compose.yaml -f compose.local.yaml up -d postgres",
+    "docker:local": "docker compose -f compose.yaml -f compose.local.yaml up -d --build --force-recreate",
+    "docker:local:migrate": "docker compose -f compose.yaml -f compose.local.yaml exec api npm run migration:run:prod",
+    "docker:local:down": "docker compose -f compose.yaml -f compose.local.yaml down",
+    "build": "npm run build -w @zevooria/api && npm run build -w @zevooria/web && npm run build -w @zevooria/admin",
+    "test": "npm run test -w @zevooria/api -- --runInBand --forceExit && npm run test -w @zevooria/web",
+    "typecheck": "npm run typecheck -w @zevooria/api && npm run typecheck -w @zevooria/web && npm run typecheck -w @zevooria/admin",
+    "lint": "npm run lint -w @zevooria/api && npm run lint -w @zevooria/web && npm run lint -w @zevooria/admin",
+    "validate": "npm run typecheck && npm run lint && npm run test && npm run build",
     "migration:run": "npm run migration:run -w @zevooria/api",
     "migration:run:prod": "npm run migration:run:prod -w @zevooria/api",
     "seed": "npm run seed -w @zevooria/api",
-    "seed:prod": "npm run seed:prod -w @zevooria/api"
+    "seed:prod": "npm run seed:prod -w @zevooria/api",
+    "seed:admin": "npm run seed:admin -w @zevooria/api",
+    "seed:admin:prod": "npm run seed:admin:prod -w @zevooria/api",
+    "seed:demo-staff": "npm run seed:demo-staff -w @zevooria/api",
+    "seed:demo-staff:prod": "npm run seed:demo-staff:prod -w @zevooria/api"
   },
   "overrides": {
     "typeorm": "0.3.26"

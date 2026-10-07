@@ -6,6 +6,15 @@ Status:
 [~] In progress
 [x] Complete
 [!] Blocked
+[D] Deferred past soft-launch MVP
+
+Active workstream (confirmed):
+
+1. [x] Inventory reservations — place reserves; confirm/ship consumes; cancel releases or restores; no TTL
+2. [x] Accounting reports — general ledger, P&L, balance sheet in admin (payment fees / reseller commissions stay deferred; refund accounting with returns)
+3. [x] Server-backed guest + customer carts and login merge (Phase 8)
+4. [x] Returns — admin-created; delivered only; line-level; restock after inspect; bank transfer via Refunds Payable then clear when paid; 14-day window from delivery (/returns); refund journals included
+
 Phase 0 — Project Governance
  [x] Repository reviewed
  [x] AGENTS.md
@@ -18,254 +27,261 @@ Phase 0 — Project Governance
  [x] Security documentation
  [x] Development workflow
 Phase 1 — Infrastructure
- AWS account
- Billing alerts
- EC2
- Elastic IP
- Docker
- RDS PostgreSQL
- S3
- Security groups
- Nginx
- HTTPS
- DNS
- Environment configuration
- Health endpoint
+ [x] AWS account
+ [x] Billing alerts
+ [x] EC2
+ [x] Elastic IP
+ [x] Docker
+ [x] RDS PostgreSQL
+ [ ] S3
+ [x] Security groups
+ [x] Nginx
+ [x] HTTPS
+ [x] DNS
+ [x] Environment configuration
+ [x] Health endpoint
 Phase 2 — Monorepo
- Workspace
- API
- Web
- Admin
- Reseller
- Mobile
- Shared types
- Shared validation
- API client
- Shared config
+ [x] Workspace
+ [x] API
+ [x] Web
+ [x] Admin
+ [D] Reseller
+ [D] Mobile
+ [D] Shared types
+ [D] Shared validation
+ [D] API client
+ [D] Shared config
 Phase 3 — Authentication & Authorization
- Users
- Roles
- Permissions
- Registration
- Login
- Logout
- Refresh
- Password reset
- Email verification
- RBAC
- Audit logging
+ [x] Users
+ [x] Roles
+ [x] Permissions
+ [x] Registration
+ [x] Login
+ [x] Logout
+ [x] Refresh (N/A — opaque sessions)
+ [x] Password reset
+ [x] Email verification
+ [x] RBAC
+ [x] Audit logging
 Phase 4 — Customers
- Customer profile
- Addresses
- Default address
- Account settings
+ [x] Customer profile
+ [x] Addresses
+ [x] Default address
+ [x] Account settings
 Phase 5 — Catalog
- Brands
- Categories
- Products
- Product variants
- Sizes
- Colors
- SKU
- Product images
- Pricing
- SEO
+ [ ] Brands
+ [ ] Categories
+ [x] Products
+ [D] Product variants
+ [D] Sizes
+ [D] Colors
+ [D] SKU
+ [x] Product images
+ [x] Pricing
+ [~] SEO
 Phase 6 — Inventory
- Warehouses
- Stock
- Stock movements
- Reservations
- Adjustments
- Inventory audit
+ [x] Warehouses
+ [x] Stock
+ [x] Stock movements
+ [x] Reservations
+ [x] Adjustments
+ [x] Inventory audit
 Phase 7 — Storefront
- Homepage
- Category
- Search
- Filters
- Product listing
- Product detail
- Wishlist
- Cart
- Customer account
+ [x] Homepage
+ [~] Category
+ [x] Search
+ [x] Filters
+ [x] Product listing
+ [x] Product detail
+ [x] Wishlist
+ [x] Cart
+ [x] Customer account
 Phase 8 — Cart & Checkout
- Guest cart
- Customer cart
- Cart merge
- Quantity management
- Stock validation
- Price validation
- Checkout
+ [x] Guest cart
+ [x] Customer cart
+ [x] Cart merge
+ [x] Quantity management
+ [x] Stock validation
+ [x] Price validation
+ [x] Checkout
 Phase 9 — Orders
- Order creation
- Order items
- Statuses
- Status history
- Cancellation
- Confirmation
+ [x] Order creation
+ [x] Order items
+ [x] Statuses
+ [x] Status history
+ [x] Cancellation
+ [x] Confirmation
 Phase 10 — Shipping
- Shipping methods
- Shipping zones
- Shipping rates
- Shipments
- Tracking
+ [D] Shipping methods
+ [D] Shipping zones
+ [x] Shipping rates
+ [D] Shipments
+ [D] Tracking
 Phase 11 — Payment Architecture
- Payment abstraction
- Payment attempts
- Transactions
- Webhooks
- Idempotency
- Refund abstraction
+ [~] Payment abstraction
+ [D] Payment attempts
+ [D] Transactions
+ [D] Webhooks
+ [~] Idempotency
+ [D] Refund abstraction
 Phase 12 — EasyPaisa
- Credentials/configuration
- Payment initiation
- Verification
- Callback/webhook
- Failure handling
- Duplicate handling
- Reconciliation
+ [D] Credentials/configuration
+ [D] Payment initiation
+ [D] Verification
+ [D] Callback/webhook
+ [D] Failure handling
+ [D] Duplicate handling
+ [D] Reconciliation
 Phase 13 — Bank Alfalah
- Credentials/configuration
- Payment initiation
- Verification
- Callback/webhook
- Failure handling
- Duplicate handling
- Reconciliation
+ [D] Credentials/configuration
+ [D] Payment initiation
+ [D] Verification
+ [D] Callback/webhook
+ [D] Failure handling
+ [D] Duplicate handling
+ [D] Reconciliation
 Phase 14 — Accounting
- Account types
- Chart of accounts
- Fiscal periods
- Journals
- Journal entries
- Journal lines
- General ledger
- Trial balance
- Profit & loss
- Balance sheet
- Sales accounting
- COGS
- Inventory accounting
- Payment fees
- Refund accounting
- Reseller commissions
+ [x] Account types
+ [x] Chart of accounts
+ [x] Fiscal periods
+ [x] Journals
+ [x] Journal entries
+ [x] Journal lines
+ [x] General ledger
+ [x] Trial balance
+ [x] Profit & loss
+ [x] Balance sheet
+ [x] Sales accounting
+ [x] COGS
+ [x] Inventory accounting
+ [D] Payment fees
+ [x] Refund accounting
+ [D] Reseller commissions
 Phase 15 — Returns & Refunds
- Return requests
- Return items
- Approval
- Refunds
- Inventory restoration
- Accounting reversal
+ [x] Return requests
+ [x] Return items
+ [x] Approval
+ [x] Refunds
+ [x] Inventory restoration
+ [x] Accounting reversal
 Phase 16 — Promotions
- Coupons
- Promotions
- Rules
- Usage limits
- Expiration
- Customer restrictions
- Reseller pricing
+ [x] Coupons (promo codes: percent / fixed PKR)
+ [x] Promotions (MVP = promo codes applied at checkout)
+ [D] Rules
+ [x] Usage limits (global max uses)
+ [x] Expiration
+ [D] Customer restrictions
+ [D] Reseller pricing
 Phase 17 — Resellers
- Registration
- Approval
- Profile
- Pricing
- Referral tracking
- Commission calculation
- Commission approval
- Payouts
- Dashboard
+ [D] Registration
+ [D] Approval
+ [D] Profile
+ [D] Pricing
+ [D] Referral tracking
+ [D] Commission calculation
+ [D] Commission approval
+ [D] Payouts
+ [D] Dashboard
 Phase 18 — Admin
- Dashboard
- Products
- Categories
- Inventory
- Orders
- Customers
- Resellers
- Payments
- Accounting
- Promotions
- Shipping
- CMS
- Reports
- Users
- Roles
- Settings
- Audit logs
+ [x] Dashboard
+ [x] Products
+ [D] Categories
+ [x] Inventory
+ [x] Orders
+ [x] Customers
+ [D] Resellers
+ [D] Payments
+ [x] Accounting
+ [x] Promotions
+ [D] Shipping
+ [D] CMS
+ [x] Reports
+ [x] Users
+ [x] Roles
+ [D] Settings
+ [x] Audit logs
 Phase 19 — CMS
- Pages
- Sections
- Banners
- Sliders
- Menus
- Footer
- FAQ
- Blog
- Media
- SEO
+ [D] Pages
+ [D] Sections
+ [D] Banners
+ [D] Sliders
+ [D] Menus
+ [D] Footer
+ [D] FAQ
+ [D] Blog
+ [D] Media
+ [D] SEO
 Phase 20 — Notifications
- Notification abstraction
- Email
- SMS abstraction
- Push abstraction
- Order notifications
- Payment notifications
- Account notifications
- Reseller notifications
- Queue workers
+ [x] Notification abstraction
+ [x] Email (console local + Amazon SES API via EMAIL_PROVIDER=ses / EC2 IAM role)
+ [D] SMS abstraction
+ [x] Push abstraction
+ [x] Order notifications (admin in-app + customer order-placed email)
+ [D] Payment notifications
+ [x] Account notifications (customer welcome + verify + password-reset emails with branded HTML; storefront links)
+ [D] Reseller notifications
+ [D] Queue workers
+Phase 20b — Support inbox
+ [x] Schema (conversations, messages, attachments, inbound S3 object idempotency)
+ [x] S3 inbound poller + MIME parsing (Nest schedule 60s; mailparser; IAM role; no object delete)
+ [x] Admin API + RBAC (`support:read` / `support:update`; list/detail/update; reply)
+ [x] Admin UI (list/detail; status + assignee; reply composer for `support:update`)
+ [x] Outbound reply via SES SendRawEmail (plain text; guest requesters OK; threading)
+ [ ] Admin notifications for new messages
 Phase 21 — Ionic
- Authentication
- Home
- Categories
- Search
- Product
- Cart
- Checkout
- Orders
- Wishlist
- Account
- Notifications
+ [D] Authentication
+ [D] Home
+ [D] Categories
+ [D] Search
+ [D] Product
+ [D] Cart
+ [D] Checkout
+ [D] Orders
+ [D] Wishlist
+ [D] Account
+ [D] Notifications
 Phase 22 — Testing
- Unit tests
- Integration tests
- API tests
- E2E tests
- Payment tests
- Order tests
- Inventory tests
- Accounting tests
- Reseller tests
- Authentication tests
+ [x] Unit tests
+ [~] Integration tests
+ [~] API tests (supertest smoke with E2E_DB=true)
+ [ ] E2E tests
+ [D] Payment tests
+ [~] Order tests
+ [~] Inventory tests
+ [x] Accounting tests
+ [D] Reseller tests
+ [x] Authentication tests
 Phase 23 — Security
- Rate limiting
- Validation
- Authorization
- CORS
- Security headers
- Upload validation
- S3 permissions
- Secret management
- Audit logs
- Webhook verification
+ [x] Rate limiting (method-aware + X-RateLimit-* headers)
+ [x] Validation
+ [x] Authorization
+ [x] CORS (WEB_PUBLIC_URL / ADMIN_PUBLIC_URL allowlist)
+ [x] Security headers (helmet)
+ [x] Upload validation (magic-byte JPEG/PNG/WebP, 5MB)
+ [D] S3 permissions
+ [~] Secret management
+ [x] Audit logs
+ [D] Webhook verification
 Phase 24 — Production
- Production Docker
- Nginx
- HTTPS
- CI/CD
- Database backups
- Backup restoration
- Logging
- Monitoring
- Redis
- Queue workers
+ [x] Production Docker
+ [x] Nginx
+ [x] HTTPS
+ [D] CI/CD
+ [ ] Database backups
+ [ ] Backup restoration
+ [ ] Logging
+ [ ] Monitoring
+ [D] Redis
+ [D] Queue workers
 Phase 25 — Launch
- Production smoke tests
- Payment tests
- Refund tests
- Inventory tests
- Mobile tests
- Performance tests
- SEO
- Error monitoring
- Security review
- Soft launch
- Production launch
+ [ ] Production smoke tests
+ [D] Payment tests
+ [D] Refund tests
+ [ ] Inventory tests
+ [D] Mobile tests
+ [ ] Performance tests
+ [~] SEO
+ [ ] Error monitoring
+ [ ] Security review
+ [ ] Soft launch
+ [ ] Production launch

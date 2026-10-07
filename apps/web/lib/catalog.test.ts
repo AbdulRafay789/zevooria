@@ -27,7 +27,8 @@ test('storageKeyToPublicUrl rejects non-assets keys', () => {
 });
 
 test('formatProductPrice displays API values without recalculation', () => {
-  assert.equal(formatProductPrice('PKR', '1299.00'), 'PKR 1299.00');
+  assert.equal(formatProductPrice('PKR', '1299.00'), 'PKR 1,299');
+  assert.equal(formatProductPrice('PKR', '999.00'), 'PKR 999');
 });
 
 test('primary and additional image selection', () => {

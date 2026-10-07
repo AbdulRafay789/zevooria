@@ -28,6 +28,19 @@ describe('catalog seed definitions', () => {
     );
 
     expect(SEED_PRODUCTS.some((p) => p.assetFolder === 'video')).toBe(false);
+
+    for (const product of SEED_PRODUCTS) {
+      if (product.name === 'Signature for Men') {
+        expect(product.pricePkr).toBe(1699);
+        expect(product.compareAtPkr).toBe(2200);
+      } else if (product.name === 'Tester') {
+        expect(product.pricePkr).toBe(999);
+        expect(product.compareAtPkr).toBeNull();
+      } else {
+        expect(product.pricePkr).toBe(1599);
+        expect(product.compareAtPkr).toBe(2100);
+      }
+    }
   });
 
   it('maps image files to ordered media with a single primary', () => {

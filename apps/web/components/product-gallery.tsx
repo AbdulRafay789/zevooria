@@ -205,7 +205,7 @@ export function ProductGallery({ productName, images }: ProductGalleryProps) {
             decoding="async"
           />
           <span className={styles.stageHint} aria-hidden>
-            View larger
+            View
           </span>
         </button>
       </div>
@@ -269,42 +269,40 @@ export function ProductGallery({ productName, images }: ProductGalleryProps) {
                   <span aria-hidden>×</span>
                 </button>
 
-                <div className={styles.lightboxFrame}>
-                  {showNav ? (
-                    <button
-                      type="button"
-                      className={styles.navPrev}
-                      aria-label="Previous image"
-                      disabled={atStart}
-                      onClick={() => dispatchLightbox({ type: 'prev' })}
-                    >
-                      <span aria-hidden>‹</span>
-                    </button>
-                  ) : null}
+                {showNav ? (
+                  <button
+                    type="button"
+                    className={styles.navPrev}
+                    aria-label="Previous image"
+                    disabled={atStart}
+                    onClick={() => dispatchLightbox({ type: 'prev' })}
+                  >
+                    <span aria-hidden>‹</span>
+                  </button>
+                ) : null}
 
-                  <div className={styles.lightboxStage}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      key={lightboxImage.storageKey}
-                      className={styles.lightboxImage}
-                      src={storageKeyToPublicUrl(lightboxImage.storageKey)}
-                      alt={lightboxImage.altText ?? productName}
-                      decoding="async"
-                    />
-                  </div>
-
-                  {showNav ? (
-                    <button
-                      type="button"
-                      className={styles.navNext}
-                      aria-label="Next image"
-                      disabled={atEnd}
-                      onClick={() => dispatchLightbox({ type: 'next' })}
-                    >
-                      <span aria-hidden>›</span>
-                    </button>
-                  ) : null}
+                <div className={styles.lightboxStage}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    key={lightboxImage.storageKey}
+                    className={styles.lightboxImage}
+                    src={storageKeyToPublicUrl(lightboxImage.storageKey)}
+                    alt={lightboxImage.altText ?? productName}
+                    decoding="async"
+                  />
                 </div>
+
+                {showNav ? (
+                  <button
+                    type="button"
+                    className={styles.navNext}
+                    aria-label="Next image"
+                    disabled={atEnd}
+                    onClick={() => dispatchLightbox({ type: 'next' })}
+                  >
+                    <span aria-hidden>›</span>
+                  </button>
+                ) : null}
 
                 <p className={styles.counter} aria-live="polite">
                   {lightbox.index + 1} / {images.length}

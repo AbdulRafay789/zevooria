@@ -7,6 +7,7 @@ FROM base AS deps
 COPY package.json package-lock.json ./
 COPY apps/api/package.json ./apps/api/
 COPY apps/web/package.json ./apps/web/
+COPY apps/admin/package.json ./apps/admin/
 RUN npm ci
 
 FROM deps AS build

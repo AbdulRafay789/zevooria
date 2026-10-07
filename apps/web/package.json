@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3000",
     "lint": "eslint",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "tsx --test lib/catalog.test.ts lib/product-gallery-logic.test.ts"
+    "test": "tsx --test lib/catalog.test.ts lib/product-gallery-logic.test.ts lib/product-description.test.ts lib/bff-session.test.ts"
   },
   "dependencies": {
     "next": "15.5.25",

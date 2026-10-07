@@ -1,0 +1,125 @@
+.hero {
+  --hero-ink: #f6f1e8;
+  --hero-ink-soft: rgba(246, 241, 232, 0.72);
+  --hero-line: rgba(246, 241, 232, 0.16);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding:
+    calc(var(--header-height) + 1.25rem)
+    var(--space-page)
+    1.75rem;
+  background: #2b2621;
+  color: var(--hero-ink);
+  overflow: hidden;
+}
+
+.stage {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 28rem);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  text-align: center;
+}
+
+.brand {
+  width: min(100%, 22rem);
+}
+
+.frame {
+  position: relative;
+  width: min(100%, 17.5rem);
+  aspect-ratio: 478 / 850;
+  max-height: min(42vh, 26rem);
+  margin: 0 auto;
+  background: #1a1714;
+  border: 1px solid var(--hero-line);
+  overflow: hidden;
+}
+
+.video,
+.fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+.fallback {
+  background: #221e1a;
+}
+
+.content {
+  width: min(100%, 22rem);
+  padding-bottom: 0.25rem;
+}
+
+.enterBrand {
+  animation: heroRise 720ms var(--ease) both;
+}
+
+.enterFrame {
+  animation: heroRise 820ms var(--ease) 90ms both;
+}
+
+.enterContent {
+  animation: heroRise 780ms var(--ease) 180ms both;
+}
+
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translateY(0.7rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 900px) {
+  .hero {
+    padding-bottom: 2rem;
+  }
+
+  .frame {
+    width: min(100%, 16.5rem);
+    max-height: min(44vh, 27rem);
+  }
+
+  .stage {
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 699px) {
+  .hero {
+    padding-top: calc(var(--header-height) + 0.85rem);
+    padding-bottom: 1.35rem;
+  }
+
+  .frame {
+    width: min(100%, 13.5rem);
+    max-height: min(36vh, 20rem);
+  }
+
+  .stage {
+    gap: 0.95rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enterBrand,
+  .enterFrame,
+  .enterContent {
+    animation: none;
+  }
+}

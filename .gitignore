@@ -1,35 +1,66 @@
 # Secrets and credentials
 *.pem
 *.key
+*.p12
+*.pfx
 .env
 .env.*
 !.env.example
+!**/.env.example
+credentials.json
+secrets.json
+*.secret
 
-# Dependencies and build output
+# Dependencies
 node_modules/
+**/node_modules/
+
+# Build / framework output
 dist/
 build/
-.next/
 out/
+.next/
+.turbo/
+.vercel/
 coverage/
 *.tsbuildinfo
+*.egg-info/
 
-# Logs
+# Logs and debug
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+lerna-debug.log*
 
 # OS and editor
 .DS_Store
 Thumbs.db
 Desktop.ini
 .idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
 *.swp
 *.swo
 *~
 
-# Local archives / exports
+# Local archives / deploy packs
 *.tar
 *.tar.gz
+*.tgz
+*.zip
+zevooria-deploy.tar.gz
+
+# Local runtime / caches
+.tmp/
+tmp/
+.cache/
+*.pid
+*.seed
+*.pid.lock
+
+# Cursor / local agent (do not push personal state)
+.cursor/
+)

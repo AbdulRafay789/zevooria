@@ -5,14 +5,29 @@ export type SeedProductDefinition = {
   /** Preferred slug; uniqueness enforced at seed time. */
   slugHint: string;
   description: string;
+  /** Authoritative whole-PKR sell price (major units). */
+  pricePkr: number;
+  /**
+   * Optional compare-at (list) price for strikethrough display.
+   * Null when there is no list price (e.g. tester).
+   */
+  compareAtPkr: number | null;
   /** Relative folder under repository `assets/` (not used for video promo). */
   assetFolder: string;
   status: ProductStatus;
 };
 
 /**
- * Initial Zevooria demo catalog. Two Sabayica and two Signature SKUs share
+ * Initial Zevooria catalog. Two Sabayica and two Signature SKUs share
  * asset folders intentionally. assets/video is promotional only — not a product.
+ *
+ * Pricing (authoritative):
+ * - Signature for Men: sell PKR 1,699 / list PKR 2,200
+ * - Standard fragrances: sell PKR 1,599 / list PKR 2,100
+ * - Tester: PKR 999 (no compare-at)
+ *
+ * Descriptions are repository-sourced only — do not invent marketing copy here
+ * beyond what is already defined for each SKU.
  */
 export const SEED_PRODUCTS: SeedProductDefinition[] = [
   {
@@ -20,6 +35,8 @@ export const SEED_PRODUCTS: SeedProductDefinition[] = [
     slugHint: 'crown-haider',
     description:
       'Crown Haider — a distinguished Zevooria fragrance from the demo catalog.',
+    pricePkr: 1599,
+    compareAtPkr: 2100,
     assetFolder: 'crown-haider',
     status: ProductStatus.ACTIVE,
   },
@@ -28,6 +45,8 @@ export const SEED_PRODUCTS: SeedProductDefinition[] = [
     slugHint: 'janic-sports',
     description:
       'Janic Sports — an energetic Zevooria fragrance from the demo catalog.',
+    pricePkr: 1599,
+    compareAtPkr: 2100,
     assetFolder: 'janic-sports',
     status: ProductStatus.ACTIVE,
   },
@@ -36,6 +55,8 @@ export const SEED_PRODUCTS: SeedProductDefinition[] = [
     slugHint: 'oceanic-luxe',
     description:
       'Oceanic Luxe — a refined aquatic-inspired Zevooria fragrance from the demo catalog.',
+    pricePkr: 1599,
+    compareAtPkr: 2100,
     assetFolder: 'oceanic-luxe',
     status: ProductStatus.ACTIVE,
   },
@@ -43,6 +64,8 @@ export const SEED_PRODUCTS: SeedProductDefinition[] = [
     name: 'Roselle',
     slugHint: 'roselle',
     description: 'Roselle — a floral Zevooria fragrance from the demo catalog.',
+    pricePkr: 1599,
+    compareAtPkr: 2100,
     assetFolder: 'roselle',
     status: ProductStatus.ACTIVE,
   },
@@ -51,6 +74,8 @@ export const SEED_PRODUCTS: SeedProductDefinition[] = [
     slugHint: 'royal-khamr',
     description:
       'Royal Khamr — a regal Zevooria fragrance from the demo catalog.',
+    pricePkr: 1599,
+    compareAtPkr: 2100,
     assetFolder: 'royal-khamr',
     status: ProductStatus.ACTIVE,
   },
@@ -59,6 +84,8 @@ export const SEED_PRODUCTS: SeedProductDefinition[] = [
     slugHint: 'royal-voyage',
     description:
       'Royal Voyage — a journey-inspired Zevooria fragrance from the demo catalog.',
+    pricePkr: 1599,
+    compareAtPkr: 2100,
     assetFolder: 'royal-voyage',
     status: ProductStatus.ACTIVE,
   },
@@ -67,6 +94,8 @@ export const SEED_PRODUCTS: SeedProductDefinition[] = [
     slugHint: 'sabayica',
     description:
       '"SABAYICA" — Arabic richness, Taif Rose, Jasmine, Oriental Spices, Amber, Musk, Precious Woods.',
+    pricePkr: 1599,
+    compareAtPkr: 2100,
     assetFolder: 'sabayica',
     status: ProductStatus.ACTIVE,
   },
@@ -75,6 +104,8 @@ export const SEED_PRODUCTS: SeedProductDefinition[] = [
     slugHint: 'sabayica-golden-sweetness',
     description:
       'Sabayica — Golden Sweetness & Timeless Bloom — Caramel, citrus, white florals, rose, vanilla, sandalwood, musk.',
+    pricePkr: 1599,
+    compareAtPkr: 2100,
     assetFolder: 'sabayica',
     status: ProductStatus.ACTIVE,
   },
@@ -82,6 +113,8 @@ export const SEED_PRODUCTS: SeedProductDefinition[] = [
     name: 'Signature for Men',
     slugHint: 'signature-for-men',
     description: 'Signature for Men – The Mark of Success',
+    pricePkr: 1699,
+    compareAtPkr: 2200,
     assetFolder: 'signature-for-man',
     status: ProductStatus.ACTIVE,
   },
@@ -89,6 +122,8 @@ export const SEED_PRODUCTS: SeedProductDefinition[] = [
     name: 'Signature for Men',
     slugHint: 'signature-for-men-ultimate-alpha',
     description: 'Signature for Men — The Ultimate Alpha Essence',
+    pricePkr: 1699,
+    compareAtPkr: 2200,
     assetFolder: 'signature-for-man',
     status: ProductStatus.ACTIVE,
   },
@@ -97,6 +132,8 @@ export const SEED_PRODUCTS: SeedProductDefinition[] = [
     slugHint: 'velmor',
     description:
       'Velmor — a contemporary Zevooria fragrance from the demo catalog.',
+    pricePkr: 1599,
+    compareAtPkr: 2100,
     assetFolder: 'velmor',
     status: ProductStatus.ACTIVE,
   },
@@ -105,6 +142,8 @@ export const SEED_PRODUCTS: SeedProductDefinition[] = [
     slugHint: 'velvet-night-oud',
     description:
       'Velvet Night Oud — a deep oud-inspired Zevooria fragrance from the demo catalog.',
+    pricePkr: 1599,
+    compareAtPkr: 2100,
     // Repository folder spelling is velvet-night-old (do not rename assets).
     assetFolder: 'velvet-night-old',
     status: ProductStatus.ACTIVE,
@@ -114,6 +153,8 @@ export const SEED_PRODUCTS: SeedProductDefinition[] = [
     slugHint: 'tester',
     description:
       'Tester — a generic demo fragrance sample from the Zevooria catalog for evaluation and sampling. Fragrance notes are not specified for this product.',
+    pricePkr: 999,
+    compareAtPkr: null,
     assetFolder: 'tester',
     status: ProductStatus.ACTIVE,
   },

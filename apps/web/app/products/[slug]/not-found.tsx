@@ -4,22 +4,14 @@ import styles from './not-found.module.css';
 export default function ProductNotFound() {
   return (
     <div className={styles.page}>
-      <header className={styles.masthead}>
-        <Link href="/" className={styles.brand}>
-          Zevooria
-        </Link>
-        <p className={styles.mastheadMeta}>The Collection</p>
-      </header>
-
       <main className={styles.main}>
         <p className={styles.eyebrow}>Fragrance</p>
         <h1 className={styles.title}>Composition unavailable</h1>
-        <div className={styles.rule} aria-hidden />
         <p className={styles.copy}>
           This fragrance is not part of the current collection, or it may have
           been withdrawn.
         </p>
-        <Link href="/" className={styles.link}>
+        <Link href="/collection" className={styles.link}>
           Return to the collection
         </Link>
       </main>

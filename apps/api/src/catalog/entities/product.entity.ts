@@ -10,7 +10,7 @@ import {
 import { ProductStatus } from '../catalog.enums';
 import { ProductMedia } from './product-media.entity';
 
-@Entity({ name: 'products' })
+@Entity({ name: 'zevooria_products' })
 export class Product {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
@@ -29,8 +29,29 @@ export class Product {
   @Column({ type: 'numeric', precision: 12, scale: 2 })
   price!: string;
 
+  /**
+   * Optional compare-at (list) price for strikethrough display only.
+   * Must be greater than `price` to show on the storefront.
+   */
+  @Column({
+    type: 'numeric',
+    precision: 12,
+    scale: 2,
+    name: 'compare_at_price',
+    nullable: true,
+  })
+  compareAtPrice!: string | null;
+
+  /** Unit cost in whole PKR for COGS. Stored as numeric. Default 0 until set. */
+  @Column({ type: 'numeric', precision: 12, scale: 2, default: 0 })
+  cost!: string;
+
   @Column({ type: 'varchar', length: 3, default: 'PKR' })
   currency!: string;
+
+  /** Lower values appear earlier in storefront grids. */
+  @Column({ type: 'int', name: 'sort_order', default: 0 })
+  sortOrder!: number;
 
   @Column({
     type: 'enum',

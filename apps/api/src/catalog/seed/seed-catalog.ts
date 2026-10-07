@@ -4,11 +4,7 @@ import { DataSource } from 'typeorm';
 import { MediaType } from '../catalog.enums';
 import { Product } from '../entities/product.entity';
 import { ProductMedia } from '../entities/product-media.entity';
-import {
-  DEMO_PRICE_MAX_PKR,
-  DEMO_PRICE_MIN_PKR,
-  randomPricePkr,
-} from '../utils/price.util';
+import { wholePkrToDb } from '../utils/price.util';
 import { uniqueSlug } from '../utils/slug.util';
 import {
   BuiltMediaSeed,
@@ -66,28 +62,58 @@ export function buildMediaForProduct(
 
 export type SeedCatalogOptions = {
   assetsRoot?: string;
-  randomUnit?: () => number;
   /** When true, skip inserting if any products already exist. */
   skipIfNotEmpty?: boolean;
+  /**
+   * When products already exist, sync authoritative price, compare-at,
+   * description, and sort_order for matching seed slugs.
+   */
+  syncExisting?: boolean;
 };
 
 export async function seedCatalog(
   dataSource: DataSource,
   options: SeedCatalogOptions = {},
-): Promise<{ inserted: number; skipped: boolean }> {
+): Promise<{
+  inserted: number;
+  skipped: boolean;
+  synced: number;
+}> {
   const productRepo = dataSource.getRepository(Product);
   const existingCount = await productRepo.count();
-  if (options.skipIfNotEmpty !== false && existingCount > 0) {
-    return { inserted: 0, skipped: true };
+
+  if (existingCount > 0) {
+    let synced = 0;
+    if (options.syncExisting !== false) {
+      for (let index = 0; index < SEED_PRODUCTS.length; index += 1) {
+        const def = SEED_PRODUCTS[index];
+        const result = await productRepo.update(
+          { slug: def.slugHint },
+          {
+            price: wholePkrToDb(def.pricePkr),
+            compareAtPrice:
+              def.compareAtPkr == null ? null : wholePkrToDb(def.compareAtPkr),
+            description: def.description,
+            name: def.name,
+            status: def.status,
+            sortOrder: index,
+          },
+        );
+        synced += result.affected ?? 0;
+      }
+    }
+
+    if (options.skipIfNotEmpty !== false) {
+      return { inserted: 0, skipped: true, synced };
+    }
   }
 
   const assetsRoot = options.assetsRoot ?? resolveAssetsRoot();
   const usedSlugs = new Set<string>();
-  const randomUnit = options.randomUnit ?? Math.random;
-
   const products: Product[] = [];
 
-  for (const def of SEED_PRODUCTS) {
+  for (let index = 0; index < SEED_PRODUCTS.length; index += 1) {
+    const def = SEED_PRODUCTS[index];
     const filenames = listImageFilenames(assetsRoot, def.assetFolder);
     if (filenames.length === 0) {
       throw new Error(
@@ -99,9 +125,12 @@ export async function seedCatalog(
       name: def.name,
       slug: uniqueSlug(def.slugHint, usedSlugs),
       description: def.description,
-      price: randomPricePkr(DEMO_PRICE_MIN_PKR, DEMO_PRICE_MAX_PKR, randomUnit),
+      price: wholePkrToDb(def.pricePkr),
+      compareAtPrice:
+        def.compareAtPkr == null ? null : wholePkrToDb(def.compareAtPkr),
       currency: 'PKR',
       status: def.status,
+      sortOrder: index,
       media: buildMediaForProduct(def.name, def.assetFolder, filenames).map(
         (m) =>
           ({
@@ -118,5 +147,5 @@ export async function seedCatalog(
   }
 
   await productRepo.save(products);
-  return { inserted: products.length, skipped: false };
+  return { inserted: products.length, skipped: false, synced: 0 };
 }

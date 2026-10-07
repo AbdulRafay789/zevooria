@@ -5,8 +5,8 @@
 # Runtime DB credentials come from the untracked repo-root .env via env_file.
 # Do not bake .env into images (.dockerignore excludes it).
 #
-# Product media for MVP: bind-mount host assets/ into the web container
-# (read-only). Do not mount the full repository (avoids exposing .env).
+# Product media for MVP: bind-mount host assets/ into api (read-write for
+# admin uploads) and web (read-only). Do not mount the full repository.
 
 services:
   api:
@@ -21,6 +21,10 @@ services:
     environment:
       NODE_ENV: production
       PORT: 3001
+      ASSETS_ROOT: /app/assets
+    volumes:
+      # Writable so admin product image uploads land in the shared assets tree.
+      - ${ZEVOORIA_ASSETS_PATH:-./assets}:/app/assets
     restart: unless-stopped
 
   web:
@@ -33,6 +37,25 @@ services:
     environment:
       NODE_ENV: production
       PORT: 3000
+      HOSTNAME: 0.0.0.0
+      API_URL: http://api:3001
+      ASSETS_ROOT: /app/assets
+    volumes:
+      - ${ZEVOORIA_ASSETS_PATH:-./assets}:/app/assets:ro
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  admin:
+    build:
+      context: .
+      dockerfile: apps/admin/Dockerfile
+    image: zevooria-admin:local
+    ports:
+      - "${ADMIN_PORT:-3002}:3002"
+    environment:
+      NODE_ENV: production
+      PORT: 3002
       HOSTNAME: 0.0.0.0
       API_URL: http://api:3001
       ASSETS_ROOT: /app/assets

@@ -1,53 +1,18 @@
 .page {
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-.masthead {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  width: min(var(--max-width), calc(100% - (var(--space-page) * 2)));
-  margin: 0 auto;
-  padding: clamp(1.35rem, 3vw, 2rem) 0 0;
-}
-
-.brand {
-  font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(1.35rem, 2.4vw, 1.7rem);
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink);
-  transition: color 220ms var(--ease);
-}
-
-.brand:hover,
-.brand:focus-visible {
-  color: var(--champagne);
-}
-
-.mastheadMeta {
-  margin: 0;
-  color: var(--ink-faint);
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  min-height: 60vh;
+  padding-top: var(--header-height);
 }
 
 .main {
-  width: min(40rem, calc(100% - (var(--space-page) * 2)));
+  width: min(36rem, calc(100% - (var(--space-page) * 2)));
   margin: 0 auto;
-  padding: clamp(3.5rem, 10vw, 7rem) 0 clamp(4.5rem, 9vw, 7rem);
-  animation: rise 700ms var(--ease) both;
+  padding: clamp(4rem, 12vw, 8rem) 0;
 }
 
 .eyebrow {
   margin: 0 0 1rem;
   color: var(--champagne);
-  font-size: 0.7rem;
-  font-weight: 600;
+  font-size: 0.65rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
 }
@@ -56,58 +21,26 @@
   margin: 0 0 1.15rem;
   font-family: var(--font-display), Georgia, serif;
   font-size: clamp(2.4rem, 6vw, 3.5rem);
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  line-height: 1.02;
+  font-weight: 400;
+  line-height: 1;
   color: var(--ink);
-}
-
-.rule {
-  width: 3.25rem;
-  height: 1px;
-  margin: 0 0 1.35rem;
-  background: var(--champagne-soft);
 }
 
 .copy {
   margin: 0 0 2rem;
   color: var(--ink-soft);
   font-size: 1.02rem;
-  line-height: 1.7;
-  max-width: 30rem;
+  line-height: 1.75;
 }
 
 .link {
   color: var(--champagne);
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  transition: color 220ms var(--ease);
 }
 
 .link:hover,
 .link:focus-visible {
   color: var(--ink);
-}
-
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(0.65rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .main {
-    animation: none;
-  }
-
-  .brand,
-  .link {
-    transition: none;
-  }
 }

@@ -11,7 +11,7 @@ import {
 import { MediaType } from '../catalog.enums';
 import { Product } from './product.entity';
 
-@Entity({ name: 'product_media' })
+@Entity({ name: 'zevooria_product_media' })
 export class ProductMedia {
   @PrimaryGeneratedColumn('uuid')
   id!: string;

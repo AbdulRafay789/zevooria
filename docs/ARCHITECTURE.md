@@ -50,6 +50,7 @@ cms
 notifications
 reports
 audit
+support
 
 Application dependency direction
 Clients

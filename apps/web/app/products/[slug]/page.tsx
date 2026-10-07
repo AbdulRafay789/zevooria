@@ -3,8 +3,19 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { CatalogError } from '../../../components/catalog-state';
 import { ProductGallery } from '../../../components/product-gallery';
-import { CatalogApiError } from '../../../lib/api';
-import { formatProductPrice, getProductImages } from '../../../lib/catalog';
+import { ProductGrid } from '../../../components/product-grid';
+import { ProductDescription } from '../../../components/product-description';
+import { ProductPurchase } from '../../../components/product-purchase';
+import { RecentlyViewed } from '../../../components/recently-viewed';
+import { RecordProductView } from '../../../components/record-product-view';
+import { CatalogApiError, fetchProducts } from '../../../lib/api';
+import {
+  formatProductPrice,
+  getCompareAtPrice,
+  getProductImages,
+  isSignatureProduct,
+  isTesterProduct,
+} from '../../../lib/catalog';
 import { fetchProductBySlug } from '../../../lib/product';
 import styles from './page.module.css';
 
@@ -35,6 +46,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
   let product = null;
   let errorMessage: string | null = null;
+  let catalog: Awaited<ReturnType<typeof fetchProducts>> = [];
 
   try {
     product = await fetchProductBySlug(slug);
@@ -48,20 +60,25 @@ export default async function ProductPage({ params }: ProductPageProps) {
         : 'Unable to load this fragrance right now.';
   }
 
+  try {
+    catalog = await fetchProducts();
+  } catch {
+    catalog = [];
+  }
+
+  const related = product
+    ? catalog
+        .filter((item) => item.id !== product.id && !isTesterProduct(item))
+        .slice(0, 4)
+    : [];
+
   if (errorMessage || !product) {
     return (
       <div className={styles.page}>
-        <header className={styles.masthead}>
-          <Link href="/" className={styles.brand}>
-            Zevooria
-          </Link>
-        </header>
         <main className={styles.main}>
-          <nav className={styles.nav} aria-label="Breadcrumb">
-            <Link href="/" className={styles.back}>
-              ← Collection
-            </Link>
-          </nav>
+          <Link href="/collection" className={styles.crumbLink}>
+            Collection
+          </Link>
           <CatalogError
             title="Unable to open this fragrance"
             message={
@@ -75,22 +92,25 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   const images = getProductImages(product.media);
-  const imageCount = images.length;
+  const priceLabel = formatProductPrice(product.currency, product.price);
+  const compareAt = getCompareAtPrice(product);
+  const compareLabel = compareAt
+    ? formatProductPrice(product.currency, compareAt)
+    : null;
+  const category = isTesterProduct(product)
+    ? 'Discovery'
+    : isSignatureProduct(product)
+      ? 'Signature'
+      : 'Parfum';
 
   return (
     <div className={styles.page}>
-      <header className={styles.masthead}>
-        <Link href="/" className={styles.brand}>
-          Zevooria
-        </Link>
-        <p className={styles.mastheadMeta}>The Collection</p>
-      </header>
-
+      <RecordProductView slug={product.slug} />
       <main className={styles.main}>
-        <nav className={styles.nav} aria-label="Breadcrumb">
+        <nav className={styles.crumbsNav} aria-label="Breadcrumb">
           <ol className={styles.crumbs}>
             <li>
-              <Link href="/" className={styles.crumbLink}>
+              <Link href="/collection" className={styles.crumbLink}>
                 Collection
               </Link>
             </li>
@@ -112,61 +132,79 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </section>
 
           <section className={styles.detail} aria-labelledby="product-title">
-            <div className={styles.detailIntro}>
-              <p className={styles.eyebrow}>Fragrance</p>
-              <h1 id="product-title" className={styles.title}>
-                {product.name}
-              </h1>
-              <p className={styles.price}>
-                <span className={styles.priceLabel}>Price</span>
-                <span className={styles.priceValue}>
-                  {formatProductPrice(product.currency, product.price)}
-                </span>
-              </p>
-            </div>
+            <p className={styles.eyebrow}>{category}</p>
+            <h1 id="product-title" className={styles.title}>
+              {product.name}
+            </h1>
 
-            <div className={styles.rule} aria-hidden />
-
-            <div className={styles.composition}>
-              <h2 className={styles.sectionLabel}>Composition</h2>
-              <p className={styles.description}>{product.description}</p>
-            </div>
-
-            <dl className={styles.meta}>
-              <div className={styles.metaItem}>
-                <dt>House</dt>
-                <dd>Zevooria</dd>
-              </div>
-              {imageCount > 0 ? (
-                <div className={styles.metaItem}>
-                  <dt>Views</dt>
-                  <dd>
-                    {imageCount} {imageCount === 1 ? 'image' : 'images'}
-                  </dd>
-                </div>
+            <p className={styles.price}>
+              {compareLabel ? (
+                <span className={styles.compareAt}>{compareLabel}</span>
               ) : null}
-              <div className={styles.metaItem}>
-                <dt>Availability</dt>
-                <dd>Coming soon</dd>
-              </div>
-            </dl>
+              {priceLabel}
+            </p>
 
-            <div className={styles.purchase}>
-              <p className={styles.purchaseNote}>
-                Private purchasing opens in a later release. This composition is
-                shown for discovery only.
-              </p>
-              <button
-                type="button"
-                className={styles.purchaseButton}
-                disabled
-                aria-disabled="true"
-              >
-                Add to bag — coming soon
-              </button>
+            <ProductDescription text={product.description} />
+
+            <ProductPurchase
+              productId={product.id}
+              slug={product.slug}
+              available={product.status === 'active'}
+              availableQuantity={product.availableQuantity}
+            />
+
+            <div className={styles.accordions}>
+              <details className={styles.details}>
+                <summary className={styles.summary}>Fragrance details</summary>
+                <div className={styles.panel}>
+                  <dl className={styles.meta}>
+                    <div>
+                      <dt>House</dt>
+                      <dd>Zevooria</dd>
+                    </div>
+                    <div>
+                      <dt>Category</dt>
+                      <dd>{category}</dd>
+                    </div>
+                    <div>
+                      <dt>Availability</dt>
+                      <dd>
+                        {product.status === 'active' &&
+                        (product.availableQuantity ?? 0) > 0
+                          ? `${product.availableQuantity} in stock`
+                          : product.status === 'active'
+                            ? 'Out of stock'
+                            : 'Unavailable'}
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+              </details>
+              <details className={styles.details}>
+                <summary className={styles.summary}>Delivery & returns</summary>
+                <div className={styles.panel}>
+                  <p>
+                    Cash on delivery is available at checkout. Shipping is PKR
+                    250 within Karachi and PKR 500 for other cities. See{' '}
+                    <Link href="/shipping">shipping details</Link> and{' '}
+                    <Link href="/returns">returns</Link>.
+                  </p>
+                </div>
+              </details>
             </div>
           </section>
         </div>
+
+        {related.length > 0 ? (
+          <section className={styles.related} aria-labelledby="related-heading">
+            <h2 id="related-heading" className={styles.relatedTitle}>
+              You may also like
+            </h2>
+            <ProductGrid products={related} />
+          </section>
+        ) : null}
+
+        <RecentlyViewed products={catalog} excludeSlug={product.slug} />
       </main>
     </div>
   );

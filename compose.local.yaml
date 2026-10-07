@@ -1,0 +1,69 @@
+# Local-only Docker Compose override for developer machines.
+# Does not replace compose.yaml (production/EC2 stack stays RDS-backed).
+#
+# Instant local UI/API changes (recommended):
+#   npm run dev
+#   → starts Postgres here, then Nest + Next on the host with hot reload
+#   → edit files; refresh browser (no docker rebuild)
+#
+# Full Docker stack (prod-like, requires rebuild after code changes):
+#   npm run docker:local
+#
+# Local DB credentials below are development-only (match .env.example defaults).
+# They intentionally override any DB_* values from the repo-root .env via
+# Compose `environment` precedence (environment beats env_file).
+
+services:
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: zevooria
+      POSTGRES_PASSWORD: zevooria
+      POSTGRES_DB: zevooria
+    ports:
+      # Published so host `npm run dev` (API) can reach Postgres.
+      - '5432:5432'
+    volumes:
+      - zevooria_pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U zevooria -d zevooria']
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+
+  api:
+    environment:
+      DB_HOST: postgres
+      DB_PORT: '5432'
+      DB_USER: zevooria
+      DB_PASSWORD: zevooria
+      DB_NAME: zevooria
+      DB_SSL: 'false'
+      EMAIL_LOG_BODY: 'true'
+      WEB_PUBLIC_URL: http://localhost:3000
+      ADMIN_SEED_EMAIL: ops@yourdomain.com
+      ADMIN_SEED_PASSWORD: 'YourPass!@12'
+      ADMIN_SEED_FULL_NAME: Zevooria Ops
+      ADMIN_DEMO_STAFF_PASSWORD: 'DemoStaff!!'
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  web:
+    environment:
+      API_URL: http://api:3001
+      ASSETS_ROOT: /app/assets
+    depends_on:
+      - api
+
+  admin:
+    environment:
+      API_URL: http://api:3001
+      ASSETS_ROOT: /app/assets
+    depends_on:
+      - api
+
+volumes:
+  zevooria_pgdata:
